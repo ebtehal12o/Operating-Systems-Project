@@ -1,10 +1,16 @@
+package cpuscheduler;
+
+
+import java.io.*;
+import java.io.IOException;
+import java.util.*;
 import java.util.*;
 public class CPUscheduler 
 {
     
     public static Scanner key = new Scanner(System.in);
     
-    public static void main(String [] args)
+    public static void main(String [] args) throws FileNotFoundException
     {
         key.useDelimiter("\n");
         boolean loopFlag = true;
@@ -58,7 +64,7 @@ public class CPUscheduler
                        int CPUBurst = key.nextInt();  
                        totalTime += CPUBurst;
                       
-                       processes[i] = new PCB(i+1, priority, arrivalTime, CPUBurst);
+                       processes[i] = new PCB(i+1 , priority, arrivalTime, CPUBurst);
                        System.out.println();
                     }
                     
@@ -170,7 +176,7 @@ public class CPUscheduler
                 case 2: 
                     
                     
-                    for(int i=0; i<processNum; i++)      
+                    for(int i=0; i< processNum; i++)      
                         processes[i].displayInfo();
                     
                     System.out.println("\n");
@@ -216,6 +222,32 @@ public class CPUscheduler
 		    System.out.printf("Average Turnaround Time is: %.2f \n", totalTimeTA/(double)processNum);
                     System.out.printf("Average Response Time is: %.2f \n\n", totalTimeR/(double)processNum);
 
+                    
+                    // output file
+               PrintWriter file = new PrintWriter(new FileOutputStream(new File("Report.txt")));
+               
+        file.print("Sheduling order of the processes : ");
+                   file.println("[" + order + "]");
+                    
+            for(int i=0; i < processNum; i++) { 
+        file.println("Process ID : " + processes[i].processID ) ;              
+        file.println("Arrival time : " + processes[i].arrivalTime) ;        
+        file.println("CPU burst : " + processes[i].cpuBurst) ;
+        file.println("Start time : " + processes[i].startTime) ;
+        file.println("Termination time : " + processes[i].terminationTime) ;   
+        file.println("Turnaround time : " + processes[i].calculateTurnaroundTime()) ;
+        file.println("Wating time : " + processes[i].calculateWaitingTime()) ;
+        file.println("Response time : " + processes[i].calculateResponseTime()) ;    
+        file.println();
+            }
+            
+            file.println("Avrage of Turnaround time : " + totalTimeTA/(double)processNum ) ;
+        file.println("Avrage of Waiting time : " +totalTimeW/(double)processNum) ;
+        file.println("Avrage of Response time : " + totalTimeR/(double)processNum) ; 
+            
+        file.close() ;
+        
+        
                     break;
                     
                     
@@ -238,14 +270,3 @@ public class CPUscheduler
         System.out.println("Thank you!!");
     }      
 }
-
-
-
-
-
-
-
-
-    
-
-
