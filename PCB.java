@@ -1,3 +1,5 @@
+package cpuscheduler;
+
 public class PCB implements Comparable<PCB>
 {
     
@@ -33,6 +35,72 @@ public class PCB implements Comparable<PCB>
     {
         return this.cpuBurst - p.cpuBurst;
     }
+      public String getProcessID() {
+        return processID;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public int getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public int getBurstTime() {
+        return cpuBurst;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+
+   
+
+    public void setTerminationTime(int terminationTime) {
+        this.terminationTime = terminationTime;
+    }
+    
+    public int getTerminationTime() {
+        return terminationTime;
+    }
+    
+
+
+    public int calculateTurnaroundTime() {
+        turnaroundTime = terminationTime - arrivalTime;
+        return turnaroundTime ;
+    }
+    
+    public int getTurnaroundTime() {
+        return turnaroundTime;
+    }
+    
+
+    public int calculateWaitingTime() {
+        waitingTime = turnaroundTime - cpuBurst ;
+        return waitingTime ;
+    }
+    
+    
+    public int getWaitingTime() {
+        return waitingTime;
+    }
+    
+
+    public int calculateResponseTime() {
+        responseTime = startTime - arrivalTime;
+        return waitingTime ;
+    }
+
+   public int getResponseTime() {
+        return responseTime;
+    }
+   
     
     public void displayInfo() 
     {
